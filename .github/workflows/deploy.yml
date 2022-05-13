@@ -4,28 +4,18 @@ jobs:
   vercel:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "14.x"
       - name: Install dependencies
         run: yarn
-      - name: log untrusted output
-        run: |
-
-          # disable command workflow processing
-          echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
-
-          # log untrusted output
-          echo "untrusted output"
-
-          # enable workflow command processing
-          echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
-      - name: Vercel Deployment
-        uses: xmflsct/action-vercel-deployment@v0.5.3
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1.7.1
         with:
-          vercelToken: ${{ secrets.VERCEL_TOKEN }}
-          vercelOrgId: ${{ secrets.ORG_ID }}
-          vercelProjectId: ${{ secrets.PROJECT_ID }}
-          githubToken: ${{ secrets.GH_PAT }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
