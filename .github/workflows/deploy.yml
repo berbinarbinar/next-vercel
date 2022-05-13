@@ -15,7 +15,6 @@ jobs:
         uses: xmflsct/action-vercel-deployment@v0.5.3
         with:
           vercelToken: ${{ secrets.VERCEL_TOKEN }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           vercelOrgId: ${{ secrets.ORG_ID }}
           vercelProjectId: ${{ secrets.PROJECT_ID }}
-          sourceDirectory: "src"
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
