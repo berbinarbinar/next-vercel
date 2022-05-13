@@ -1,0 +1,20 @@
+name: deploy next-vercel to vercel
+on: [push, pull_request]
+jobs:
+  vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: set env variables on vercel project
+        uses: dkershner6/vercel-set-env-action@v1
+        with:
+          token: ${{ secrets.VERCEL_TOKEN }}
+          projectName: berbinarbinar-next
+      - name: deploy site to vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }} #optional
+          vercel-args: "--prod" #optional
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
